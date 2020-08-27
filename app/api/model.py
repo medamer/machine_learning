@@ -23,16 +23,16 @@ model = TfidfVectorizer(stop_words = 'english',
                         min_df = 3,
                         tokenizer = tokenizer)
 
-
 # Fit and transform the data:
 dtm = model.fit_transform(df['Effects'])
 
 # Get features:
 dtm = pd.DataFrame(dtm.todense(), columns = model.get_feature_names())
 
-nn = NearestNeighbors(n_neighbors=1, algorithm='kd_tree')
-model_t = nn.fit(dtm)
+model_t = NearestNeighbors(n_neighbors=1, algorithm='kd_tree')
+model_t.fit(dtm)
 
 
 
 pickle.dump(model, open("../model.pkl", "wb"))
+pickle.dump(model_t, open("../model_t.pkl", "wb"))
